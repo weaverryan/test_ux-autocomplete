@@ -11,7 +11,7 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class WithoutAjaxWithEventType extends AbstractType
+class UnmappedWithoutAjaxWithEventType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -27,6 +27,7 @@ class WithoutAjaxWithEventType extends AbstractType
                 $form->add('personGroup',EntityType::class,[
                     'class' => Group::class,
                     'autocomplete' => true,
+                    'mapped' => false,
                     'data' => $data
                 ]);
             })

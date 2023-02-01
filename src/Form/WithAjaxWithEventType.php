@@ -7,9 +7,11 @@ use App\Entity\Person;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class UnmappedWithoutAjaxWithoutEventType extends AbstractType
+class WithAjaxWithEventType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -17,12 +19,15 @@ class UnmappedWithoutAjaxWithoutEventType extends AbstractType
 
         $builder
             ->add('name')
-            ->add('personGroup',EntityType::class,[
-                'class' => Group::class,
-                'mapped' => false,
-                'autocomplete' => true,
-                'data' => $data
-            ])
+            ->addEventListener(
+                FormEvents::PRE_SET_DATA,
+                function(FormEvent $event) use ($data){
+                    $form = $event->getForm();
+
+                    $form->add('personGroup',GroupAutocompleteField::class,[
+                        'data' => $data
+                    ]);
+                })
         ;
     }
 

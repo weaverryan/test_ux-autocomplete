@@ -4,12 +4,11 @@ namespace App\Form;
 
 use App\Entity\Group;
 use App\Entity\Person;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class UnmappedWithoutAjaxWithoutEventType extends AbstractType
+class WithAjaxWithoutEventType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -17,10 +16,7 @@ class UnmappedWithoutAjaxWithoutEventType extends AbstractType
 
         $builder
             ->add('name')
-            ->add('personGroup',EntityType::class,[
-                'class' => Group::class,
-                'mapped' => false,
-                'autocomplete' => true,
+            ->add('personGroup',GroupAutocompleteField::class,[
                 'data' => $data
             ])
         ;
