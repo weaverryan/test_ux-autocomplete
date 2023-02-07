@@ -27,7 +27,7 @@ class GroupController extends AbstractController
 
         $person = new Person();
         $form = $this->createForm(WithAjaxWithEventType::class, $person,[
-            'group' => $groupRepository->findOneBy(['name'=>'g2'])
+            'group' => $groupRepository->findOneBy([]) // If the group null it's works fine, but if we set data the bug will rendered
         ]);
         $form->handleRequest($request);
 
