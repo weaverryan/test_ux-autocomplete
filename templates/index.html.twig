@@ -3,5 +3,8 @@
 {% block title %}Hello GroupController!{% endblock %}
 
 {% block body %}
-{{ form(form) }}
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button type="submit" formnovalidate>Submit</button>
+    {{ form_end(form) }}
 {% endblock %}
